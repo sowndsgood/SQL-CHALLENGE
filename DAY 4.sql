@@ -1,0 +1,23 @@
+--Number of Calls Between Two Persons
+
+CREATE TABLE calls (
+ call_id INT PRIMARY KEY,
+ caller_id INT,
+ receiver_id INT,
+ call_timestamp TIMESTAMP
+);
+
+INSERT INTO calls (call_id, caller_id, receiver_id, call_timestamp) VALUES
+(1, 101, 102, '2024-10-01 08:00:00'),
+(2, 102, 101, '2024-10-01 08:05:00'),
+(3, 101, 103, '2024-10-01 09:00:00'),
+(4, 102, 103, '2024-10-01 09:30:00'),
+(5, 101, 102, '2024-10-01 10:00:00');
+
+ SELECT 
+ 	LEAST(CALLER_ID,RECEIVER_ID) AS PERSON1,
+ 	GREATEST(CALLER_ID,RECEIVER_ID) AS PERSON2,
+ 	COUNT(*) AS CALL_COUNT
+ FROM CALLS
+ GROUP BY PERSON1,PERSON2
+ ORDER BY PERSON1,PERSON2
